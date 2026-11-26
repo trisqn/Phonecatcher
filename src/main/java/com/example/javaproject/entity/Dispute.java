@@ -13,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -27,6 +30,8 @@ import java.time.Instant;
                 @Index(name = "ix_dispute_status", columnList = "status")
         }
 )
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Dispute {
 
     @Id
@@ -62,12 +67,6 @@ public class Dispute {
     private Instant reviewedAt;
 
     /**
-     * Creates an empty dispute for JPA entity materialization.
-     */
-    protected Dispute() {
-    }
-
-    /**
      * Creates a dispute awaiting moderator review.
      *
      * @param warning active warning being disputed
@@ -85,87 +84,6 @@ public class Dispute {
         if (submittedAt == null) {
             submittedAt = Instant.now();
         }
-    }
-
-    /**
-     * Gets the dispute identifier.
-     *
-     * @return dispute identifier
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Gets the warning being disputed.
-     *
-     * @return warning being disputed
-     */
-    public Warning getWarning() {
-        return warning;
-    }
-
-    /**
-     * Gets the account that submitted the dispute.
-     *
-     * @return account that submitted the dispute
-     */
-    public User getSubmitter() {
-        return submitter;
-    }
-
-    /**
-     * Gets the moderator who reviewed the dispute.
-     *
-     * @return moderator who reviewed the dispute, if any
-     */
-    public User getReviewer() {
-        return reviewer;
-    }
-
-    /**
-     * Gets the submitter's explanation.
-     *
-     * @return submitter's explanation
-     */
-    public String getReason() {
-        return reason;
-    }
-
-    /**
-     * Gets the dispute's current lifecycle state.
-     *
-     * @return current lifecycle state
-     */
-    public DisputeStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Gets the moderator's explanation.
-     *
-     * @return moderator's explanation, if reviewed
-     */
-    public String getReviewComment() {
-        return reviewComment;
-    }
-
-    /**
-     * Gets the dispute submission time.
-     *
-     * @return dispute submission time
-     */
-    public Instant getSubmittedAt() {
-        return submittedAt;
-    }
-
-    /**
-     * Gets the time the dispute was reviewed.
-     *
-     * @return moderation time, or {@code null} if not reviewed
-     */
-    public Instant getReviewedAt() {
-        return reviewedAt;
     }
 
     /**

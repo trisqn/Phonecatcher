@@ -9,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -17,6 +20,8 @@ import java.time.Instant;
  */
 @Entity
 @Table(name = "app_user")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -40,12 +45,6 @@ public class User {
     private Instant createdAt;
 
     /**
-     * Creates an empty account for JPA entity materialization.
-     */
-    protected User() {
-    }
-
-    /**
      * Creates an account with the supplied credentials and role.
      *
      * @param email normalized account email address
@@ -65,57 +64,4 @@ public class User {
         }
     }
 
-    /**
-     * Gets the account identifier.
-     *
-     * @return account identifier
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Gets the account email address.
-     *
-     * @return account email address
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Gets the encoded password hash.
-     *
-     * @return encoded password hash
-     */
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    /**
-     * Gets the account's assigned role.
-     *
-     * @return account role
-     */
-    public UserRole getRole() {
-        return role;
-    }
-
-    /**
-     * Checks whether the account is enabled.
-     *
-     * @return whether the account is enabled
-     */
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    /**
-     * Gets the account creation time.
-     *
-     * @return account creation time
-     */
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
 }

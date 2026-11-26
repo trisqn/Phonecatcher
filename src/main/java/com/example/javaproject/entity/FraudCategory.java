@@ -9,6 +9,9 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -23,6 +26,8 @@ import java.time.Instant;
                 columnNames = "code"
         )
 )
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FraudCategory {
 
     @Id
@@ -46,12 +51,6 @@ public class FraudCategory {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
-
-    /**
-     * Creates an empty category for JPA entity materialization.
-     */
-    protected FraudCategory() {
-    }
 
     /**
      * Creates an active category.
@@ -83,42 +82,6 @@ public class FraudCategory {
     }
 
     /**
-     * Gets the category identifier.
-     *
-     * @return category identifier
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Gets the stable category code.
-     *
-     * @return stable category code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * Gets the category display name.
-     *
-     * @return category display name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the title displayed on warnings for this category.
-     *
-     * @return warning title
-     */
-    public String getWarningTitle() {
-        return warningTitle;
-    }
-
-    /**
      * Updates editable display fields and the category's availability.
      *
      * @param name display name
@@ -138,30 +101,4 @@ public class FraudCategory {
         this.active = false;
     }
 
-    /**
-     * Checks whether the category is available for new reports.
-     *
-     * @return whether the category is active
-     */
-    public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * Gets the category creation time.
-     *
-     * @return category creation time
-     */
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Gets the last category update time.
-     *
-     * @return last category update time
-     */
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
 }

@@ -15,6 +15,9 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -30,6 +33,8 @@ import java.time.Instant;
                 @Index(name = "ix_warning_updated_at", columnList = "updated_at")
         }
 )
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Warning {
 
     @Id
@@ -68,12 +73,6 @@ public class Warning {
     private long version;
 
     /**
-     * Creates an empty warning for JPA entity materialization.
-     */
-    protected Warning() {
-    }
-
-    /**
      * Creates an active warning for a phone number.
      *
      * @param phoneNumber number associated with this warning
@@ -108,96 +107,6 @@ public class Warning {
     @PreUpdate
     void setUpdatedAt() {
         updatedAt = Instant.now();
-    }
-
-    /**
-     * Gets the warning identifier.
-     *
-     * @return warning identifier
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Gets the phone number associated with this warning.
-     *
-     * @return associated phone number
-     */
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * Gets the category currently represented by the most reports.
-     *
-     * @return dominant category
-     */
-    public FraudCategory getDominantCategory() {
-        return dominantCategory;
-    }
-
-    /**
-     * Gets the warning title.
-     *
-     * @return warning title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Gets the warning's current lifecycle state.
-     *
-     * @return current warning state
-     */
-    public WarningStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Gets the instant when the warning became active.
-     *
-     * @return activation time
-     */
-    public Instant getActivatedAt() {
-        return activatedAt;
-    }
-
-    /**
-     * Gets the instant when the warning was deactivated.
-     *
-     * @return deactivation time, if applicable
-     */
-    public Instant getDeactivatedAt() {
-        return deactivatedAt;
-    }
-
-    /**
-     * Gets the warning creation time.
-     *
-     * @return warning creation time
-     */
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Gets the last warning update time.
-     *
-     * @return last update time
-     */
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    /**
-     * Gets the optimistic-lock version.
-     *
-     * @return entity version
-     */
-    public long getVersion() {
-        return version;
     }
 
     /**

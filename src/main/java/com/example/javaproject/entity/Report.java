@@ -13,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -30,6 +33,8 @@ import java.time.LocalTime;
                 @Index(name = "ix_report_created_at", columnList = "created_at")
         }
 )
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Report {
 
     @Id
@@ -63,12 +68,6 @@ public class Report {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-
-    /**
-     * Creates an empty report for JPA entity materialization.
-     */
-    protected Report() {
-    }
 
     /**
      * Creates a report with the incident details supplied by its reporter.
@@ -106,84 +105,4 @@ public class Report {
         }
     }
 
-    /**
-     * Gets the report identifier.
-     *
-     * @return report identifier
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Gets the account that submitted the report.
-     *
-     * @return reporting account
-     */
-    public User getReporter() {
-        return reporter;
-    }
-
-    /**
-     * Gets the phone number involved in the incident.
-     *
-     * @return phone number
-     */
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * Gets the report's fraud category.
-     *
-     * @return fraud category
-     */
-    public FraudCategory getCategory() {
-        return category;
-    }
-
-    /**
-     * Gets the date the incident occurred.
-     *
-     * @return incident date
-     */
-    public LocalDate getIncidentDate() {
-        return incidentDate;
-    }
-
-    /**
-     * Gets the local incident time.
-     *
-     * @return incident time, if known
-     */
-    public LocalTime getIncidentTime() {
-        return incidentTime;
-    }
-
-    /**
-     * Gets the method used to contact the reporter.
-     *
-     * @return communication channel
-     */
-    public CommunicationChannel getCommunicationChannel() {
-        return communicationChannel;
-    }
-
-    /**
-     * Gets the optional incident description.
-     *
-     * @return incident description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Gets the report creation time.
-     *
-     * @return report creation time
-     */
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
 }

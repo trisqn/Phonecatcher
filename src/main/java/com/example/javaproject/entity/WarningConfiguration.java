@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Version;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 import java.time.Instant;
 
@@ -14,6 +15,7 @@ import java.time.Instant;
  */
 @Entity
 @Table(name = "warning_configuration")
+@Getter
 public class WarningConfiguration {
 
     /** Primary key used for the single configuration row. */
@@ -39,33 +41,6 @@ public class WarningConfiguration {
      * Creates an empty configuration for JPA entity materialization.
      */
     protected WarningConfiguration() {
-    }
-
-    /**
-     * Gets the minimum distinct reporter count required for a warning.
-     *
-     * @return report threshold
-     */
-    public int getReportThreshold() {
-        return reportThreshold;
-    }
-
-    /**
-     * Gets the configured warning inactivity period.
-     *
-     * @return expiration period in days
-     */
-    public int getExpirationDays() {
-        return expirationDays;
-    }
-
-    /**
-     * Gets the instant when the configuration was last changed.
-     *
-     * @return last update time
-     */
-    public Instant getUpdatedAt() {
-        return updatedAt;
     }
 
     /**
